@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TodoType {
+  task
+  checklist
+}
+
+enum TodoStatus {
+  todo
+  in_progress
+  blocked
+  done
+  cancelled
+}
+
+enum TodoPriority {
+  low
+  medium
+  high
+  critical
+}
+
+
+model Todo {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+
+  type        TodoType     @default(task)
+  status      TodoStatus   @default(todo)
+  priority    TodoPriority @default(medium)
+
+  tags        String[]     @default([])   
+
+  dueDate     DateTime?
+  isPinned    Boolean      @default(false)
+  isArchived  Boolean      @default(false)
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+
+  items       TodoItem[]
+  history     TodoHistory[]
+
+  @@index([status, priority])
+  @@map("todos")
+}
+
+model TodoItem {
+  id        String   @id @default(cuid())
+  content   String
+  isDone    Boolean  @default(false)
+  position  Int      @default(0)
+
+  todoId    String
+  todo      Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
+
+  @@map("todo_items")
+}
+
+model TodoHistory {
+  id            String   @id @default(cuid())
+  changedField  String
+  oldValue      String?
+  newValue      String?
+  changedAt     DateTime @default(now())
+
+  todoId        String
+  todo          Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
+
+  @@map("todo_history")
+}
