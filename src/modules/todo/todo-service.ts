@@ -1,19 +1,34 @@
-import { Prisma } from "@prisma/client";
 import { TodoRepository } from "./todo-repository.js";
+import { CreateTodoDto } from "../../utils/todo-types.js";
 
-export class TodoService{
-     private todoRepository = new TodoRepository();
-     async createTodo(data: Prisma.TodoCreateInput) {
+export class TodoService {
+  private todoRepository = new TodoRepository();
 
-    const title = data.title.trim();
+  async createTodo(data: CreateTodoDto, userId: string) {
+    return this.todoRepository.create({
+      title: data.title.trim(),
+      description: data.description,
+      type: data.type,
+      status: data.status,
+      priority: data.priority,
+      tags: data.tags,
+      dueDate: data.dueDate,
 
-    return await this.todoRepository.create({
-      ...data,
-      title,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+
+      items: data.items
+        ? {
+            create: data.items,
+          }
+        : undefined,
     });
   }
 
-  async getTodos() {
-    return await this.todoRepository.findAll();
+  async getTodos(userId: string) {
+    return this.todoRepository.findAll(userId);
   }
 }

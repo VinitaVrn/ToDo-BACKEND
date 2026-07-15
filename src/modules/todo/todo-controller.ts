@@ -1,16 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import { TodoService } from "./todo-service.js";
+import { createTodoSchema } from "./todo-validator.js";
 
-export class TodoController{
-    private todoService = new TodoService();
+export class TodoController {
+  private todoService = new TodoService();
 
-    async createTodo(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
+  async createTodo(req: Request, res: Response, next: NextFunction) {
     try {
-      const todo = await this.todoService.createTodo(req.body);
+      const reqestbody = createTodoSchema.parse(req.body);
+      const todo = await this.todoService.createTodo(reqestbody,req.user!.userId);
 
       return res.status(201).json({
         success: true,
@@ -21,13 +19,9 @@ export class TodoController{
       next(error);
     }
   }
-  async getTodos(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
+  async getTodos(req: Request, res: Response, next: NextFunction) {
     try {
-      const todos = await this.todoService.getTodos();
+      const todos = await this.todoService.getTodos(req.user!.userId);
 
       return res.status(200).json({
         success: true,
@@ -38,4 +32,3 @@ export class TodoController{
     }
   }
 }
-

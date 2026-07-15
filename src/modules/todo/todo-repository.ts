@@ -7,14 +7,15 @@ export class TodoRepository {
       data,
     });
   }
-   async findAll() {
-    return await prisma.todo.findMany({
-      where: {
-        deletedAt: null,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-  }
+  async findAll(userId: string) {
+  return prisma.todo.findMany({
+    where: {
+      userId,
+      deletedAt: null,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+}
 }

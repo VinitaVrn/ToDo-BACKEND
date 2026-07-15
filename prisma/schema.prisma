@@ -19,7 +19,7 @@ enum TodoType {
 }
 
 enum TodoStatus {
-  todo
+  ALL
   in_progress
   blocked
   done
@@ -40,7 +40,7 @@ model Todo {
   description String?
 
   type        TodoType     @default(task)
-  status      TodoStatus   @default(todo)
+  status      TodoStatus   @default(ALL)
   priority    TodoPriority @default(medium)
 
   tags        String[]     @default([])   
@@ -52,6 +52,9 @@ model Todo {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   deletedAt   DateTime?
+
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   items       TodoItem[]
   history     TodoHistory[]
@@ -84,4 +87,19 @@ model TodoHistory {
   todo          Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
 
   @@map("todo_history")
+}
+
+model User {
+  id        String   @id @default(cuid())
+
+  name      String
+  email     String   @unique
+  password  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  todos     Todo[]
+
+  @@map("users")
 }
