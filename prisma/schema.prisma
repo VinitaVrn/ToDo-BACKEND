@@ -57,6 +57,7 @@ model Todo {
   history     TodoHistory[]
 
   @@index([status, priority])
+  @@index([deletedAt])
   @@map("todos")
 }
 
