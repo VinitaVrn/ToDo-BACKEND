@@ -1,0 +1,497 @@
+{
+  "info": {
+    "_postman_id": "f608556e-363e-456e-b7bf-9253c9cd2ea1",
+    "name": "ToDo-Backend-API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53703241",
+    "_collection_link": "https://go.postman.co/collection/53703241-f608556e-363e-456e-b7bf-9253c9cd2ea1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"xyz\",\n    \"email\": \"xyz@gmail.com\",\n    \"password\": \"xyz123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json, text/plain, */*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-GB,en-US;q=0.9,en;q=0.8"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_0k7v}}"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "If-None-Match",
+                "value": "W/\"18f-ct99AbDNa/ZHZrm/oEimIc5uSSw\""
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:5173"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:5173/"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-site"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"Linux\""
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/api/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "user"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "todo",
+      "item": [
+        {
+          "name": "Create-Todo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_06ci}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Complete Backend Assignment\",\n  \"description\": \"Finish the Todo Management backend, write unit tests, and prepare the Postman collection before submission.\",\n  \"type\": \"task\",\n  \"status\": \"in_progress\",\n  \"priority\": \"high\",\n  \"tags\": [\"backend\", \"typescript\", \"prisma\"],\n  \"dueDate\": \"2026-07-20\",\n  \"isPinned\": true,\n  \"isArchived\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/todos/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "todos",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update-todo",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json, text/plain, */*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-GB,en-US;q=0.9,en;q=0.8"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_156i}}"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:5173"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:5173/"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-site"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"Linux\""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"self time\",\n    \"description\": \"need to meditate tomorrow\",\n    \"status\": \"in_progress\",\n    \"priority\": \"low\",\n    \"type\": \"task\",\n    \"dueDate\": \"2026-07-16\",\n    \"isPinned\": true,\n    \"isArchived\": false,\n    \"tags\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/todos/update/cmrmejoor0000ovhclxi5tspc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "todos",
+                "update",
+                "cmrmejoor0000ovhclxi5tspc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete-Todo",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json, text/plain, */*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-GB,en-US;q=0.9,en;q=0.8"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_0k7v}}"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:5173"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:5173/"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-site"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"Linux\""
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/api/todos/delete/cmrmejoor0000ovhclxi5tspc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "todos",
+                "delete",
+                "cmrmejoor0000ovhclxi5tspc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getbyID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json, text/plain, */*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-GB,en-US;q=0.9,en;q=0.8"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_0k7v}}"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "If-None-Match",
+                "value": "W/\"18f-ct99AbDNa/ZHZrm/oEimIc5uSSw\""
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:5173"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:5173/"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-site"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"Linux\""
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:4000/api/todos/getById/cmrmejoor0000ovhclxi5tspc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "todos",
+                "getById",
+                "cmrmejoor0000ovhclxi5tspc"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Get-todos",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0noo}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/todos/get?isArchived=false",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "todos",
+            "get"
+          ],
+          "query": [
+            {
+              "key": "isArchived",
+              "value": "false"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "auth_secret_0noo",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_06ci",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_156i",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0k7v",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0k7v",
+      "secret": true
+    }
+  ]
+}
