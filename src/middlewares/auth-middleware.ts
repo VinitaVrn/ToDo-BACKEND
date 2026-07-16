@@ -42,6 +42,7 @@ export const authMiddleware = (
       token,
       process.env.JWT_SECRET!
     ) as JwtPayload;
+    console.log("Decoded JWT:", decoded);
 
     req.user = decoded;
 

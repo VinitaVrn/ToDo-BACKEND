@@ -19,7 +19,6 @@ enum TodoType {
 }
 
 enum TodoStatus {
-  ALL
   in_progress
   blocked
   done
@@ -40,7 +39,7 @@ model Todo {
   description String?
 
   type        TodoType     @default(task)
-  status      TodoStatus   @default(ALL)
+  status      TodoStatus   @default(in_progress)
   priority    TodoPriority @default(medium)
 
   tags        String[]     @default([])   

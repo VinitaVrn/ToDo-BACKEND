@@ -1,15 +1,19 @@
 import { z } from "zod";
 
 const todoItemSchema = z.object({
-  content: z
-    .string()
-    .trim()
-    .min(1, "Checklist item cannot be empty"),
+  content: z.string().trim().min(1, "Checklist item cannot be empty"),
 
-  position: z
-    .number()
-    .int()
-    .nonnegative(),
+  position: z.number().int().nonnegative(),
+});
+
+const updateTodoItemSchema = z.object({
+  id: z.string(),
+
+  content: z.string().trim().min(1).optional(),
+
+  position: z.number().int().nonnegative().optional(),
+
+  isDone: z.boolean().optional(),
 });
 
 export const createTodoSchema = z.object({
@@ -27,34 +31,31 @@ export const createTodoSchema = z.object({
 
   type: z.enum(["task", "checklist"]),
 
-  status: z.enum([
-    "ALL",
-    "in_progress",
-    "blocked",
-    "done",
-    "cancelled",
-  ]),
+  status: z.enum(["in_progress", "blocked", "done", "cancelled"]),
 
-  priority: z.enum([
-    "low",
-    "medium",
-    "high",
-    "critical",
-  ]),
+  priority: z.enum(["low", "medium", "high", "critical"]),
 
-  tags: z
-    .array(z.string().trim().min(1))
-    .default([]),
+  tags: z.array(z.string().trim().min(1)).default([]),
 
   dueDate: z
     .string()
     .date()
     .optional()
-    .transform((value) =>
-      value ? new Date(value) : undefined
-    ),
+    .transform((value) => (value ? new Date(value) : undefined)),
 
-  items: z
-    .array(todoItemSchema)
-    .optional(),
+  items: z.array(todoItemSchema).optional(),
+
+  isPinned: z.boolean().optional(),
+
+  isArchived: z.boolean().optional(),
 });
+
+export const updateTodoSchema = createTodoSchema
+  .omit({ items: true })
+  .extend({
+    items: z.array(updateTodoItemSchema).optional(),
+  })
+  .partial()
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field is required",
+  });
