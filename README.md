@@ -21,7 +21,7 @@ A scalable REST API for a Todo Management application built with **Node.js**, **
 - Checklist Support
 - Todo History
 - Input Validation using Zod
-- Repository-Service-Controller-Route Layered Architecture
+- Repository-Service-Controller-Route Module Architecture
 
 ---
 
@@ -92,6 +92,21 @@ todo-backend/
 └── README.md
 ```
 
+## Architecture
+
+The project follows a **Module-Based Architecture** with the Repository-Service-Controller pattern.
+
+Each feature is organized independently into:
+
+- Controller (HTTP request handling)
+- Service (Business logic)
+- Repository (Database operations)
+- Routes (API endpoints)
+- Validator (Request validation using Zod)
+
+This separation improves maintainability, scalability, and testability.
+
+
 ## Installation
 
 Clone the repository
@@ -119,7 +134,7 @@ PORT=4000
 
 DATABASE_URL="postgresql://username:password@localhost:5432/todo_db"
 
-JWT_SECRET=your_secret_key
+JWT_SECRET=jhygygjghhjjhgythhvhgvghvh
 
 ```
 
@@ -171,8 +186,7 @@ npm start
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| POST | /auth/register | Register User |
-| POST | /auth/login | Login User |
+| POST | api/auth/login | Login User |
 
 ---
 
@@ -180,11 +194,11 @@ npm start
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| POST | /todos | Create Todo |
-| GET | /todos | Get Todos |
-| GET | /todos/:id | Get Todo by ID |
-| PATCH | /todos/:id | Update Todo |
-| DELETE | /todos/:id | Permanently Delete Todo |
+| POST |/api/todos/create | Create Todo |
+| GET | /api/todos/get | Get Todos |
+| GET | /api/todos/getById:id | Get Todo by ID |
+| PATCH | /api/todos/update/:id | Update Todo |
+| DELETE |/api/todos/delete/:id | Permanently Delete Todo |
 
 ---
 
@@ -193,7 +207,7 @@ npm start
 ### Search
 
 ```
-GET /todos?search=backend
+GET /api/todos/get?search=backend
 ```
 
 Searches by
@@ -344,16 +358,4 @@ Vinita
 
 ---
 
-### I would also suggest adding these badges at the top of the README for a more professional GitHub appearance:
 
-```md
-# Todo Management Backend
-
-![Node.js](https://img.shields.io/badge/Node.js-22-green)
-![Express](https://img.shields.io/badge/Express-5-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-blue)
-![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
-```
-
-This format is clean, recruiter-friendly, and follows the style commonly seen in well-maintained open-source backend repositories.
