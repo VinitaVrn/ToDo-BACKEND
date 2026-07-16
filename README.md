@@ -19,7 +19,6 @@ A scalable REST API for a Todo Management application built with **Node.js**, **
 - Soft Delete (Archive)
 - Hard Delete
 - Checklist Support
-- Todo History
 - Input Validation using Zod
 - Repository-Service-Controller-Route Module Architecture
 
@@ -322,6 +321,7 @@ Examples
 - dueDate
 - isPinned
 - isArchived
+- items
 - createdAt
 - updatedAt
 
